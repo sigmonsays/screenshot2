@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>{{.Title}}</title>
+</head>
+<body>
+
+   {{range $p, $page := .Images }} 
+      {{range $i, $img := $page }} 
+         <div><a href="{{$img.Link}}"><img src="{{$img.ThumbSrc}}"/></a></div>
+      {{end}}
+      <br>
+   {{end}}
+
+</body>
+</html>
