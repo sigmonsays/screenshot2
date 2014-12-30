@@ -14,6 +14,7 @@ func ScreenshotAction(c *cli.Context) {
 }
 
 func TakeScreenshot(c *cli.Context) error {
-   fmt.Println("TODO")
+   shortname := c.String("shortname")
+   fmt.Println("TODO", shortname)
    return nil
 }

@@ -35,6 +35,14 @@ func main() {
        ShortName: "s",
        Usage:     "take a screenshot",
        Action: screenshot.ScreenshotAction,
+       Flags: []cli.Flag{
+         cli.StringFlag{
+           Name: "shortname",
+           Value: "shortname",
+           Usage: "shortname for screenshot",
+         },
+
+       },
      },
   }
   app.Run(os.Args)
