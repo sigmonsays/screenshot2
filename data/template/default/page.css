@@ -6,3 +6,14 @@ h1 {
     color: navy;
     margin-left: 20px;
 }
+
+div.page {
+   margin: 0.3em;
+}
+
+span.image {
+   padding: 1px;
+}
+span.image#hover {
+   border: 1px solid blue;
+}

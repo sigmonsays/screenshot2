@@ -16,6 +16,8 @@ func GalleryAction(c *cli.Context) {
 }
 
 type GalleryOptions struct {
+   Title string
+   PerPage int
    OutDir string
    TemplatePath string
    ThumbWidth, ThumbHeight int
@@ -27,6 +29,8 @@ func (o *GalleryOptions) OutPath(path string) string {
 func BuildGallery(c *cli.Context) error {
 
    opts := &GalleryOptions{
+      Title: "Pictures",
+      PerPage: 5,
       OutDir: "out/",
       ThumbWidth: 250,
       ThumbHeight: 250,
@@ -49,8 +53,8 @@ func BuildGallery(c *cli.Context) error {
    }
 
    page := &Page{
-      Title: "Pictures",
-      PerPage: 5,
+      Title: opts.Title,
+      PerPage: opts.PerPage,
    }
    page.Images, err = MakePageImages(page, images)
    if err != nil {
