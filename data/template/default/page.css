@@ -8,12 +8,13 @@ h1 {
 }
 
 div.page {
-   margin: 0.3em;
+   padding: 2px;
+   margin: 2px;
 }
 
 span.image {
    padding: 1px;
 }
 span.image#hover {
-   border: 1px solid blue;
+   background: blue;
 }
