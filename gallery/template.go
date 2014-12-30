@@ -1,14 +1,14 @@
 package gallery
 import (
    "os"
+   "path/filepath"
    "text/template"
 )
 
 // renders the page template
 func RenderTemplate(opts *GalleryOptions, page *Page) error {
    pageFile := opts.OutPath("index.html")
-
-   pageTmplFile := "data/template/default/page.tmpl"
+   pageTmplFile := filepath.Join(opts.TemplatePath, "page.tmpl")
 
    pageTmpl := template.Must(template.New("page.tmpl").ParseFiles(pageTmplFile))
 

@@ -1,7 +1,4 @@
 package gallery
-import (
-   "fmt"
-)
 
 type ImageSet []*ImageInfo
 
@@ -30,7 +27,6 @@ func MakePageImages(page *Page, images []*ImageInfo) ([]ImageSet, error) {
          if idx + 1 > num_images {
             break
          }
-         fmt.Printf("add image %s to page %d\n", images[idx], pagenum)
          imageset[pagenum] = append(imageset[pagenum], images[idx])
       }
    }

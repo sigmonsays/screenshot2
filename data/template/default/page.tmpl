@@ -1,12 +1,14 @@
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="page.css">
+
 <title>{{.Title}}</title>
 </head>
 <body>
 
    {{range $p, $page := .Images }} 
       {{range $i, $img := $page }} 
-         <div><a href="{{$img.Link}}"><img src="{{$img.ThumbSrc}}"/></a></div>
+         <div ><a href="{{$img.Link}}"><img src="{{$img.ThumbSrc}}"/></a></div>
       {{end}}
       <br>
    {{end}}

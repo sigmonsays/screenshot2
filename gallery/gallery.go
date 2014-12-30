@@ -4,6 +4,7 @@ import (
    "fmt"
    "path/filepath"
    "github.com/codegangsta/cli"
+   "github.com/sigmonsays/screenshot2/util"
 )
 
 func GalleryAction(c *cli.Context) {
@@ -16,6 +17,7 @@ func GalleryAction(c *cli.Context) {
 
 type GalleryOptions struct {
    OutDir string
+   TemplatePath string
    ThumbWidth, ThumbHeight int
 }
 func (o *GalleryOptions) OutPath(path string) string {
@@ -28,6 +30,12 @@ func BuildGallery(c *cli.Context) error {
       OutDir: "out/",
       ThumbWidth: 250,
       ThumbHeight: 250,
+      TemplatePath: "data/template/default",
+   }
+
+   err := PrepareOutput(opts)
+   if err != nil {
+      return err
    }
 
    images, err := FindImages("ex")
@@ -38,10 +46,6 @@ func BuildGallery(c *cli.Context) error {
    err = MakeThumbnails(opts, images)
    if err != nil {
       return err
-   }
-
-   for i, image := range images {
-      fmt.Printf("%d. %+v\n", i, image)
    }
 
    page := &Page{
@@ -59,5 +63,27 @@ func BuildGallery(c *cli.Context) error {
    }
 
    fmt.Printf("page %+v\n", page)
+   return nil
+}
+
+func PrepareOutput(opts *GalleryOptions) error {
+
+   // copy everything from the template directory in the output directory
+   offset := len(opts.TemplatePath)
+   err := filepath.Walk(opts.TemplatePath, func(path string, info os.FileInfo, err error) error {
+      ext := filepath.Ext(path)
+      if ext == ".tmpl" {
+         return nil
+      }
+      newpath := filepath.Join(opts.OutDir, path[offset:])
+      os.MkdirAll(filepath.Dir(newpath), 0722)
+      util.CopyFile(path, newpath)
+      return nil
+   })
+
+   if err != nil {
+      return err
+   }
+
    return nil
 }
