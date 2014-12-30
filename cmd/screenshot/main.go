@@ -5,6 +5,7 @@ import (
    "github.com/codegangsta/cli"
 
    "github.com/sigmonsays/screenshot2/gallery"
+   "github.com/sigmonsays/screenshot2/screenshot"
 )
 
 func main() {
@@ -12,7 +13,7 @@ func main() {
   app.Name = os.Args[0]
   app.Usage = "screenshot"
   app.Action = func(c *cli.Context) {
-    println("screenshot")
+      fmt.Println("screenshot")
   }
   app.Commands = []cli.Command{
      {
@@ -29,7 +30,13 @@ func main() {
        Usage:     "make a gallery of images",
        Action: gallery.GalleryAction,
      },
-   }
+     {
+       Name:      "screenshot",
+       ShortName: "s",
+       Usage:     "take a screenshot",
+       Action: screenshot.ScreenshotAction,
+     },
+  }
   app.Run(os.Args)
 }
 
