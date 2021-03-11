@@ -1,24 +1,39 @@
 package capture
 
 import (
+	"os"
+
 	"github.com/sigmonsays/screenshot2/config"
 	"github.com/urfave/cli/v2"
 )
 
-func getConfig(cfgfile string) *config.AppConfig {
+func getConfig(cfgfile string) (*config.AppConfig, error) {
 	cfg := config.GetDefaultConfig()
-	//cfg.LoadYaml(cfgfile)
-	return cfg
+
+	st, err := os.Stat(cfgfile)
+	if err != nil || st.IsDir() {
+		return cfg, nil
+	}
+
+	log.Tracef("Loading config %s...", cfgfile)
+	err = cfg.LoadYaml(cfgfile)
+	if err != nil {
+		return nil, err
+	}
+	return cfg, nil
 }
 
 func GalleryCapture(c *cli.Context) error {
-	cfg := getConfig(c.String("config"))
+	cfg, err := getConfig(c.String("config"))
+	if err != nil {
+		return err
+	}
 
 	shortname := NewShortname(c.String("shortname"))
 	log.Tracef("GalleryCapture shortname:%s", shortname.Value)
 
 	cap := &Command{}
-	err := cap.Capture(cfg, shortname)
+	err = cap.Capture(cfg, shortname)
 	if err != nil {
 		return err
 	}
