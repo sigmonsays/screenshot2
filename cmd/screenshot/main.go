@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/sigmonsays/screenshot2/capture"
@@ -13,10 +12,6 @@ func main() {
 	app := cli.NewApp()
 	app.Name = os.Args[0]
 	app.Usage = "screenshot"
-	app.Action = func(c *cli.Context) error {
-		fmt.Println("screenshot")
-		return nil
-	}
 	app.Commands = []*cli.Command{
 		{
 			Name:   "capture",

@@ -17,4 +17,5 @@ require (
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/sys v0.0.0-20210309074719-68d13333faf2 // indirect
 	golang.org/x/tools v0.1.0 // indirect
+	gopkg.in/yaml.v2 v2.2.3
 )
