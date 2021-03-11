@@ -13,7 +13,8 @@ func NewShortname(v string) *Shortname {
 }
 
 type Shortname struct {
-	Value string
+	Value     string
+	LocalFile string
 }
 
 func (me *Shortname) String() string {

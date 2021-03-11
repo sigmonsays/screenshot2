@@ -22,6 +22,8 @@ func getConfig(cfgfile string) (*config.AppConfig, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	os.MkdirAll(cfg.DataDir, 0755)
 	return cfg, nil
 }
 
