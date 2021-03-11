@@ -2,8 +2,9 @@ package screenshot
 
 import (
 	"fmt"
-	"github.com/urfave/cli/v2"
 	"os"
+
+	"github.com/urfave/cli/v2"
 )
 
 func ScreenshotAction(c *cli.Context) error {
@@ -17,6 +18,6 @@ func ScreenshotAction(c *cli.Context) error {
 
 func TakeScreenshot(c *cli.Context) error {
 	shortname := c.String("shortname")
-	fmt.Println("TODO", shortname)
+	log.Tracef("TakeScreenshot shortname:%s", shortname)
 	return nil
 }
