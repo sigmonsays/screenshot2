@@ -55,5 +55,9 @@ func main() {
 			},
 		},
 	}
-	app.Run(os.Args)
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Tracef("app exited with error: %s", err)
+		os.Exit(1)
+	}
 }

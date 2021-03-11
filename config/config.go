@@ -8,11 +8,6 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-// main configuration structure
-type AppConfig struct {
-	DataDir string
-}
-
 func (c *AppConfig) LoadDefault() {
 	*c = *GetDefaultConfig()
 }
