@@ -3,6 +3,7 @@ package capture
 import (
 	"os"
 
+	"github.com/sigmonsays/screenshot2/clipboard"
 	"github.com/sigmonsays/screenshot2/config"
 	"github.com/sigmonsays/screenshot2/core"
 	"github.com/sigmonsays/screenshot2/upload"
@@ -44,6 +45,12 @@ func GalleryCapture(c *cli.Context) error {
 
 	up := &upload.Upload{}
 	err = up.Upload(cfg, shortname)
+	if err != nil {
+		return err
+	}
+
+	clip := clipboard.Clipboard{}
+	err = clip.CopyToClipboard(cfg, shortname)
 	if err != nil {
 		return err
 	}
