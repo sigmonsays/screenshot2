@@ -4,6 +4,8 @@ import (
 	"os"
 
 	"github.com/sigmonsays/screenshot2/config"
+	"github.com/sigmonsays/screenshot2/core"
+	"github.com/sigmonsays/screenshot2/upload"
 	"github.com/urfave/cli/v2"
 )
 
@@ -29,11 +31,17 @@ func GalleryCapture(c *cli.Context) error {
 		return err
 	}
 
-	shortname := NewShortname(c.String("shortname"))
+	shortname := core.NewShortname(c.String("shortname"))
 	log.Tracef("GalleryCapture shortname:%s", shortname.Value)
 
 	cap := &Command{}
 	err = cap.Capture(cfg, shortname)
+	if err != nil {
+		return err
+	}
+
+	up := &upload.Upload{}
+	err = up.Upload(cfg, shortname)
 	if err != nil {
 		return err
 	}

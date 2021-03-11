@@ -4,12 +4,13 @@ import (
 	"os/exec"
 
 	"github.com/sigmonsays/screenshot2/config"
+	"github.com/sigmonsays/screenshot2/core"
 )
 
 type Command struct {
 }
 
-func (me *Command) Capture(cfg *config.AppConfig, shortname *Shortname) error {
+func (me *Command) Capture(cfg *config.AppConfig, shortname *core.Shortname) error {
 	cmdline := []string{"import", shortname.String() + ".jpg"}
 	c := exec.Command(cmdline[0], cmdline[1:]...)
 	c.Dir = cfg.DataDir
