@@ -28,10 +28,17 @@ func (me *S3) Upload(cfg *config.AppConfig, shortname *core.Shortname) error {
 	defer f.Close()
 
 	_, err = uploader.Upload(&s3manager.UploadInput{
-		Bucket: aws.String(cfg.Upload.Bucket),
-		Key:    aws.String(objectName),
-		Body:   f,
+		Bucket:          aws.String(cfg.Upload.Bucket),
+		Key:             aws.String(objectName),
+		ACL:             aws.String("public-read"),
+		ContentEncoding: aws.String("image/jpg"),
+		Body:            f,
 	})
+	if err != nil {
+		return err
+	}
+
+	log.Tracef("successfully uploaded %s bucket:%s", objectName, cfg.Upload.Bucket)
 
 	return nil
 }
