@@ -15,6 +15,11 @@ type Clipper interface {
 func (me *Clipboard) CopyToClipboard(cfg *config.AppConfig, shortname *core.Shortname) error {
 	log.Tracef("starting clipboard copy shortname:%s", shortname)
 
+	if shortname.Url == "" {
+		log.Tracef("No url found, not copying to clipboard")
+		return nil
+	}
+
 	//todo: pick method based on config
 	//
 	method := "xclip"

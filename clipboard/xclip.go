@@ -2,7 +2,6 @@ package clipboard
 
 import (
 	"bytes"
-	"fmt"
 	"os/exec"
 
 	"github.com/sigmonsays/screenshot2/config"
@@ -14,9 +13,9 @@ type XClip struct {
 
 func (me *XClip) CopyToClipboard(cfg *config.AppConfig, shortname *core.Shortname) error {
 	objectName := shortname.Value + ".jpg" // name in remote storage
+	clipUrl := shortname.Url
 
-	clipUrl := fmt.Sprintf("http://%s.s3.amazonaws.com/%s", cfg.Upload.Bucket, objectName)
-	log.Tracef("clipboard url %s", clipUrl)
+	log.Tracef("objectName:%s clipboard url %s", objectName, clipUrl)
 
 	buf := bytes.NewBufferString(clipUrl)
 

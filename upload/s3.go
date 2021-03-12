@@ -1,6 +1,7 @@
 package upload
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -37,6 +38,8 @@ func (me *S3) Upload(cfg *config.AppConfig, shortname *core.Shortname) error {
 	if err != nil {
 		return err
 	}
+
+	shortname.Url = fmt.Sprintf("http://%s.s3.amazonaws.com/%s", cfg.Upload.Bucket, objectName)
 
 	log.Tracef("successfully uploaded %s bucket:%s", objectName, cfg.Upload.Bucket)
 
