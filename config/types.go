@@ -8,6 +8,7 @@ type AppConfig struct {
 }
 
 type Upload struct {
+	Interface       string
 	CommandTemplate []string `yaml:"command_template"`
 	Bucket          string   `yaml:"bucket"`
 	AccessKey       string   `yaml:"access_key"`

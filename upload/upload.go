@@ -15,19 +15,18 @@ type Uploader interface {
 func (me *Upload) Upload(cfg *config.AppConfig, shortname *core.Shortname) error {
 	log.Tracef("starting upload shortname:%s", shortname)
 
-	//todo: pick method based on config
-	//
-	method := "command"
-	method = "s3"
 	var upper Uploader
-	if method == "command" {
+	iface := cfg.Upload.Interface
+
+	if iface == "command" {
 		cmd := &Command{}
 		upper = cmd
-	} else if method == "s3" {
+	} else if iface == "s3" {
 		cmd := &S3{}
 		upper = cmd
 	} else {
 		upper = &Command{}
+		log.Warnf("defaulting to command interface")
 	}
 	err := upper.Upload(cfg, shortname)
 	if err != nil {
