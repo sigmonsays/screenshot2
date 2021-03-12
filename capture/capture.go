@@ -1,35 +1,30 @@
 package capture
 
 import (
-	"github.com/sigmonsays/screenshot2/clipboard"
+	"github.com/sigmonsays/screenshot2/config"
 	"github.com/sigmonsays/screenshot2/core"
-	"github.com/sigmonsays/screenshot2/upload"
-	"github.com/urfave/cli/v2"
 )
 
-func GalleryCapture(c *cli.Context) error {
-	cfg, err := getConfig(c.String("config"))
-	if err != nil {
-		return err
+type Capture struct {
+}
+
+type Capper interface {
+	Capture(fg *config.AppConfig, shortname *core.Shortname) error
+}
+
+func (me *Capture) Capture(cfg *config.AppConfig, shortname *core.Shortname) error {
+	log.Tracef("starting capture shortname:%s", shortname)
+	var capper Capper
+	iface := cfg.Capture.Interface
+
+	if iface == "command" {
+		cmd := &Command{}
+		capper = cmd
+	} else {
+		capper = &Command{}
+		log.Warnf("defaulting to command interface")
 	}
-
-	shortname := core.NewShortname(c.String("shortname"))
-	log.Tracef("GalleryCapture shortname:%s", shortname.Value)
-
-	cap := &Command{}
-	err = cap.Capture(cfg, shortname)
-	if err != nil {
-		return err
-	}
-
-	up := &upload.Upload{}
-	err = up.Upload(cfg, shortname)
-	if err != nil {
-		return err
-	}
-
-	clip := clipboard.Clipboard{}
-	err = clip.CopyToClipboard(cfg, shortname)
+	err := capper.Capture(cfg, shortname)
 	if err != nil {
 		return err
 	}

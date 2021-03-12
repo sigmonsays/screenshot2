@@ -1,11 +1,9 @@
-
 currently work in progress and incomplete
 
 screenshot
 =============
 
 screenshot capturing and uploading program
-
 
 features
 -------------
@@ -21,6 +19,6 @@ configuration
             command: import
         upload:
             interface: s3
-            access_key: XXX
-            secret_key: XXX
-            bucket: XXX
+            access_key: [aws access key]
+            secret_key: [aws secret key]
+            bucket: [ aws bucket ]

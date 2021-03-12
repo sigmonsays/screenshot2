@@ -2,9 +2,10 @@ package config
 
 // main configuration structure
 type AppConfig struct {
-	DataDir string
-	Capture *Capture
-	Upload  *Upload
+	DataDir   string
+	Capture   *Capture
+	Upload    *Upload
+	Clipboard *Clipboard
 }
 
 type Upload struct {
@@ -15,6 +16,12 @@ type Upload struct {
 	SecretKey       string   `yaml:"secret_key"`
 }
 type Capture struct {
+	Interface string
 	// "import"
 	Command string `yaml:"command"`
+}
+
+type Clipboard struct {
+	Interface string
+	Command   string `yaml:"command"`
 }

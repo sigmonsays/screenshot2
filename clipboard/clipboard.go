@@ -20,11 +20,8 @@ func (me *Clipboard) CopyToClipboard(cfg *config.AppConfig, shortname *core.Shor
 		return nil
 	}
 
-	//todo: pick method based on config
-	//
-	method := "xclip"
 	var clip Clipper
-	if method == "xclip" {
+	if cfg.Clipboard.Interface == "xclip" {
 		cl := &XClip{}
 		clip = cl
 	} else {
