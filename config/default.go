@@ -5,6 +5,10 @@ var defaultConf = `
 datadir: /tmp/screenshot
 capture:
   command: import
+upload:
+  interface: ""
+clipboard:
+  interface: ""
 
 # EOF
 `
