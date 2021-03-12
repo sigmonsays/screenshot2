@@ -20,6 +20,8 @@ jobs:
 
       - name: Build debian package
         uses: sigmonsays/dpkg-buildpackage-go@master
+        with:
+          install_target: github.com/sigmonsays/screenshot2/...
 
       - name: list files
         run: ls -l *.deb
