@@ -32,7 +32,8 @@ func (me *S3) Upload(cfg *config.AppConfig, shortname *core.Shortname) error {
 		Bucket:          aws.String(cfg.Upload.Bucket),
 		Key:             aws.String(objectName),
 		ACL:             aws.String("public-read"),
-		ContentEncoding: aws.String("image/jpg"),
+		ContentEncoding: aws.String("image/jpeg"),
+		ContentType:     aws.String("image/jpeg"),
 		Body:            f,
 	})
 	if err != nil {
