@@ -15,7 +15,7 @@ all:
 compile:
 	mkdir -p tmp
 	mkdir -p $(GOBIN)
-	go install github.com/...
+	go install github.com/sigmonsays/screenshot2/...
 
 install:
 	mkdir -p $(DESTDIR)/$(INSTALL_PREFIX)/bin/ 
