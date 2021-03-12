@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/sigmonsays/screenshot2/capture"
+	"github.com/sigmonsays/screenshot2"
 	"github.com/sigmonsays/screenshot2/gallery"
 	"github.com/urfave/cli/v2"
 )
@@ -21,7 +21,7 @@ func main() {
 		{
 			Name:   "capture",
 			Usage:  "capture a screenshot",
-			Action: capture.GalleryCapture,
+			Action: screenshot2.Capture,
 			Flags: []cli.Flag{
 				&cli.StringFlag{
 					Name:    "config",

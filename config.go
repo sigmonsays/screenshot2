@@ -1,4 +1,4 @@
-package capture
+package screenshot2
 
 import (
 	"os"
@@ -6,7 +6,7 @@ import (
 	"github.com/sigmonsays/screenshot2/config"
 )
 
-func getConfig(cfgfile string) (*config.AppConfig, error) {
+func GetConfig(cfgfile string) (*config.AppConfig, error) {
 	cfg := config.GetDefaultConfig()
 
 	st, err := os.Stat(cfgfile)
