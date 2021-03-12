@@ -9,15 +9,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func GalleryAction(c *cli.Context) error {
-	err := BuildGallery(c)
-	if err != nil {
-		fmt.Printf("error %s\n", err)
-		os.Exit(1)
-	}
-	return nil
-}
-
 type GalleryOptions struct {
 	Title                   string
 	PerPage                 int
