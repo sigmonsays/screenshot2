@@ -28,7 +28,7 @@ func (me *S3) Upload(cfg *config.AppConfig, shortname *core.Shortname) error {
 	}
 	defer f.Close()
 
-	_, err = uploader.Upload(&s3manager.UploadInput{
+	out, err := uploader.Upload(&s3manager.UploadInput{
 		Bucket:          aws.String(cfg.Upload.Bucket),
 		Key:             aws.String(objectName),
 		ACL:             aws.String("public-read"),
@@ -39,6 +39,7 @@ func (me *S3) Upload(cfg *config.AppConfig, shortname *core.Shortname) error {
 	if err != nil {
 		return err
 	}
+	log.Tracef("upload id is %s", out.UploadID)
 
 	shortname.Url = fmt.Sprintf("http://%s.s3.amazonaws.com/%s", cfg.Upload.Bucket, objectName)
 
