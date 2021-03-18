@@ -5,7 +5,6 @@ import (
 	"path/filepath"
 
 	"github.com/sigmonsays/screenshot2"
-	"github.com/sigmonsays/screenshot2/gallery"
 	"github.com/urfave/cli/v2"
 )
 
@@ -39,7 +38,7 @@ func main() {
 		{
 			Name:   "gallery",
 			Usage:  "make a gallery of images",
-			Action: gallery.GalleryAction,
+			Action: screenshot2.GalleryAction,
 			Flags: []cli.Flag{
 				&cli.StringFlag{
 					Name:    "config",
