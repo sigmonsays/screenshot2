@@ -20,7 +20,7 @@ func (me *S3) Upload(cfg *config.AppConfig, shortname *core.Shortname) error {
 		Region:      aws.String("us-west-1"),
 		Credentials: credentials.NewStaticCredentials(cfg.Upload.AccessKey, cfg.Upload.SecretKey, ""),
 	})
-	objectName := shortname.Value + ".jpg" // name in remote storage
+	objectName := shortname.GetShortname() + ".jpg" // name in remote storage
 	uploader := s3manager.NewUploader(sess)
 	f, err := os.Open(shortname.LocalFile)
 	if err != nil {

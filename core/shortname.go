@@ -1,6 +1,10 @@
 package core
 
-import "time"
+import (
+	"bytes"
+	"fmt"
+	"time"
+)
 
 func NewShortname(v string) *Shortname {
 	s := &Shortname{
@@ -13,14 +17,28 @@ func NewShortname(v string) *Shortname {
 }
 
 type Shortname struct {
-	Value     string
-	LocalFile string
-	Url       string
+	Value       string
+	LocalFile   string
+	Url         string
+	IncludeDate bool
+}
+
+// returns shortname formatted
+func (me *Shortname) GetShortname() string {
+	var out bytes.Buffer
+	now := time.Now()
+	if me.IncludeDate {
+		x := now.Format("2006-01-02/15:04:05.999999999")
+		fmt.Fprintf(&out, "%s/", x)
+	}
+	fmt.Fprintf(&out, "%s", me.Value)
+	return out.String()
 }
 
 func (me *Shortname) String() string {
-	return me.Value
+	return me.GetShortname()
 }
+
 func (me *Shortname) IsEmpty() bool {
 	return me.Value == ""
 }

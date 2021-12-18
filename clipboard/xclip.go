@@ -12,7 +12,7 @@ type XClip struct {
 }
 
 func (me *XClip) CopyToClipboard(cfg *config.AppConfig, shortname *core.Shortname) error {
-	objectName := shortname.Value + ".jpg" // name in remote storage
+	objectName := shortname.GetShortname() + ".jpg" // name in remote storage
 	clipUrl := shortname.Url
 
 	log.Tracef("objectName:%s clipboard url %s", objectName, clipUrl)

@@ -15,7 +15,8 @@ func Capture(c *cli.Context) error {
 	}
 
 	shortname := core.NewShortname(c.String("shortname"))
-	log.Tracef("GalleryCapture shortname:%s", shortname.Value)
+	shortname.IncludeDate = true
+	log.Tracef("GalleryCapture shortname:%s", shortname.GetShortname())
 
 	cap := &capture.Capture{}
 	err = cap.Capture(cfg, shortname)
