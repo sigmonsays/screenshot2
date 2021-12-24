@@ -114,4 +114,5 @@ jobs:
         binary_name: screenshot
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
+        goversion: 1.17
         #goversion: "https://dl.google.com/go/go1.13.1.linux-amd64.tar.gz"
