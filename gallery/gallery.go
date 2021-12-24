@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/sigmonsays/screenshot2/data"
 	"github.com/sigmonsays/screenshot2/util"
 	"github.com/urfave/cli/v2"
 )
@@ -12,6 +13,7 @@ import (
 type GalleryOptions struct {
 	Title                   string
 	PerPage                 int
+	InDir                   string
 	OutDir                  string
 	TemplatePath            string
 	ThumbWidth, ThumbHeight int
@@ -24,9 +26,10 @@ func (o *GalleryOptions) OutPath(path string) string {
 func BuildGallery(c *cli.Context) error {
 
 	opts := &GalleryOptions{
-		Title:        "Pictures",
+		Title:        c.String("title"),
 		PerPage:      5,
-		OutDir:       "out/",
+		InDir:        c.String("in"),
+		OutDir:       c.String("out"),
 		ThumbWidth:   250,
 		ThumbHeight:  250,
 		TemplatePath: "data/template/default",
@@ -37,7 +40,7 @@ func BuildGallery(c *cli.Context) error {
 		return err
 	}
 
-	images, err := FindImages("ex")
+	images, err := FindImages(opts.InDir, opts.OutDir)
 	if err != nil {
 		return err
 	}
@@ -56,7 +59,9 @@ func BuildGallery(c *cli.Context) error {
 		return err
 	}
 
-	err = RenderTemplate(opts, page)
+	data := &data.Data{}
+
+	err = RenderTemplate(opts, page, data)
 	if err != nil {
 		return err
 	}
@@ -66,6 +71,8 @@ func BuildGallery(c *cli.Context) error {
 }
 
 func PrepareOutput(opts *GalleryOptions) error {
+
+	os.MkdirAll(opts.OutDir, 0722)
 
 	// copy everything from the template directory in the output directory
 	offset := len(opts.TemplatePath)
