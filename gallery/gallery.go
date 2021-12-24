@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/sigmonsays/screenshot2/data"
 	"github.com/sigmonsays/screenshot2/util"
 	"github.com/urfave/cli/v2"
 )
@@ -56,7 +57,9 @@ func BuildGallery(c *cli.Context) error {
 		return err
 	}
 
-	err = RenderTemplate(opts, page)
+	data := &data.Data{}
+
+	err = RenderTemplate(opts, page, data)
 	if err != nil {
 		return err
 	}
@@ -66,6 +69,8 @@ func BuildGallery(c *cli.Context) error {
 }
 
 func PrepareOutput(opts *GalleryOptions) error {
+
+	os.MkdirAll(opts.OutDir, 0722)
 
 	// copy everything from the template directory in the output directory
 	offset := len(opts.TemplatePath)

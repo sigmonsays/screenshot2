@@ -1,27 +1,42 @@
 package gallery
+
 import (
-   "os"
-   "path/filepath"
-   "text/template"
+	"io/ioutil"
+	"os"
+	"text/template"
+
+	"github.com/sigmonsays/screenshot2/data"
 )
 
 // renders the page template
-func RenderTemplate(opts *GalleryOptions, page *Page) error {
-   pageFile := opts.OutPath("index.html")
-   pageTmplFile := filepath.Join(opts.TemplatePath, "page.tmpl")
+func RenderTemplate(opts *GalleryOptions, page *Page, data *data.Data) error {
 
-   pageTmpl := template.Must(template.New("page.tmpl").ParseFiles(pageTmplFile))
+	templateFile := "template/default/page.tmpl"
 
-   f, err := os.Create(pageFile)
-   if err != nil {
-      return err
-   }
-   defer f.Close()
+	t, err := data.Open(templateFile)
+	if err != nil {
+		return err
+	}
+	defer t.Close()
 
-   err = pageTmpl.Execute(f, page)
-   if err != nil {
-      return err
-   }
+	tmpl, err := ioutil.ReadAll(t)
+	if err != nil {
+		return err
+	}
 
-   return nil
+	pageTmpl := template.Must(template.New("page.tmpl").Parse(string(tmpl)))
+
+	pageFile := opts.OutPath("index.html")
+	f, err := os.Create(pageFile)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	err = pageTmpl.Execute(f, page)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
