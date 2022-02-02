@@ -39,3 +39,24 @@ configuration example
             access_key: [aws access key]
             secret_key: [aws secret key]
             bucket: [ aws bucket ]
+
+
+All Config params
+--------------------------
+
+all parameters
+
+    datadir: Pictures/screenshot
+    capture:
+      command: import
+      keep_local: true
+    upload:
+      interface: s3
+      command_template: []
+      bucket: XXX
+      access_key: XXX
+      secret_key: XXX
+    clipboard:
+      interface: xclip
+      command: ""
+
