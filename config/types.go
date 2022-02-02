@@ -18,7 +18,8 @@ type Upload struct {
 type Capture struct {
 	Interface string
 	// "import"
-	Command string `yaml:"command"`
+	Command   string `yaml:"command"`
+	KeepLocal bool `yaml:"keep_local"`
 }
 
 type Clipboard struct {

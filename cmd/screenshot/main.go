@@ -18,6 +18,24 @@ func main() {
 
 	app.Commands = []*cli.Command{
 		{
+			Name:   "config",
+			Usage:  "show screenshot config",
+			Action: screenshot2.Config,
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:    "config",
+					Aliases: []string{"c"},
+					Usage:   "config file",
+					Value:   cfgfile,
+				},
+				&cli.StringFlag{
+					Name:    "shortname",
+					Aliases: []string{"s"},
+					Usage:   "shortname of screenshot",
+				},
+			},
+		},
+		{
 			Name:   "capture",
 			Usage:  "capture a screenshot",
 			Action: screenshot2.Capture,

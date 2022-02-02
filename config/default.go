@@ -2,9 +2,10 @@ package config
 
 var defaultConf = `
 # Default yaml config
-datadir: /tmp/screenshot
+datadir: Pictures/screenshot
 capture:
   command: import
+  keep_local: true
 upload:
   interface: ""
 clipboard:

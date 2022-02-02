@@ -8,10 +8,27 @@ screenshot capturing and uploading program
 features
 -------------
 - written in go so easy to install with zero dependency fuss
-- simple gallery generator which makes thumbnails
-- templates for themes
+- simple gallery generator which makes thumbnails, templates for themes
+- upload to s3 API
 
-configuration
+Usage
+-------------
+        NAME:
+        screenshot - screenshot
+
+        USAGE:
+        screenshot [global options] command [command options] [arguments...]
+
+        COMMANDS:
+        config   show screenshot config
+        capture  capture a screenshot
+        gallery  make a gallery of images
+        help, h  Shows a list of commands or help for one command
+
+        GLOBAL OPTIONS:
+        --help, -h  show help (default: false)
+   
+configuration example
 ---------------------------------
 
         datadir: /tmp/shots
@@ -22,3 +39,24 @@ configuration
             access_key: [aws access key]
             secret_key: [aws secret key]
             bucket: [ aws bucket ]
+
+
+All Config params
+--------------------------
+
+all parameters
+
+    datadir: Pictures/screenshot
+    capture:
+      command: import
+      keep_local: true
+    upload:
+      interface: s3
+      command_template: []
+      bucket: XXX
+      access_key: XXX
+      secret_key: XXX
+    clipboard:
+      interface: xclip
+      command: ""
+

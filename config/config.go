@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -45,7 +47,10 @@ func (c *AppConfig) LoadYamlBuffer(buf []byte) error {
 
 func GetDefaultConfig() *AppConfig {
 	cfg := &AppConfig{}
-	cfg.LoadYamlBuffer([]byte(defaultConf))
+	err := cfg.LoadYamlBuffer([]byte(defaultConf))
+	if err != nil {
+		log.Warnf("LoadYamlBuffer: %s", err)
+	}
 	return cfg
 }
 
@@ -53,6 +58,16 @@ func GetDefaultConfig() *AppConfig {
 // or abort the loading process
 func (c *AppConfig) FixupConfig() error {
 	// var emptyConfig AppConfig
+	home := os.Getenv("HOME")
+
+	if home != "" {
+
+		if strings.HasPrefix(c.DataDir, "/") == false {
+			c.DataDir = filepath.Join(home, c.DataDir)
+			log.Debugf("Setting datadir relative to %s: datadir=%s",
+				home, c.DataDir)
+		}
+	}
 
 	return nil
 }
