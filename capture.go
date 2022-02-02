@@ -1,6 +1,8 @@
 package screenshot2
 
 import (
+	"os"
+
 	"github.com/sigmonsays/screenshot2/capture"
 	"github.com/sigmonsays/screenshot2/clipboard"
 	"github.com/sigmonsays/screenshot2/core"
@@ -35,5 +37,14 @@ func Capture(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
+
+	if shortname.LocalFile != "" && cfg.Capture.KeepLocal == false {
+		log.Debugf("Delete local file %s", shortname.LocalFile)
+		err = os.Remove(shortname.LocalFile)
+		if err != nil {
+			log.Warnf("Remove %s: %s", shortname.LocalFile, err)
+		}
+	}
+
 	return nil
 }
