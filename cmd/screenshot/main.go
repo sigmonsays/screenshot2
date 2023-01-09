@@ -6,12 +6,29 @@ import (
 
 	"github.com/sigmonsays/screenshot2"
 	"github.com/urfave/cli/v2"
+
+	gologging "github.com/sigmonsays/go-logging"
 )
 
 func main() {
 	app := cli.NewApp()
 	app.Name = os.Args[0]
 	app.Usage = "screenshot"
+	app.Before = func(c *cli.Context) error {
+		loglevel := c.String("loglevel")
+		if loglevel != "" {
+			gologging.SetLogLevel(loglevel)
+		}
+		return nil
+	}
+	app.Flags = []cli.Flag{
+		&cli.StringFlag{
+			Name:    "loglevel",
+			Aliases: []string{"l"},
+			Usage:   "log level",
+			Value:   "INFO",
+		},
+	}
 
 	home := os.Getenv("HOME")
 	cfgfile := filepath.Join(home, ".screenshot.yaml")
