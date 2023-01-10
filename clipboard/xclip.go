@@ -2,7 +2,6 @@ package clipboard
 
 import (
 	"bytes"
-	"fmt"
 	"os/exec"
 
 	"github.com/sigmonsays/screenshot2/config"
@@ -28,6 +27,5 @@ func (me *XClip) CopyToClipboard(cfg *config.AppConfig, shortname *core.Shortnam
 	}
 	log.Tracef("successfully copied %s to clipboard", clipUrl)
 
-	fmt.Printf("%s\n", clipUrl)
 	return nil
 }

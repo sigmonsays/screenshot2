@@ -1,7 +1,9 @@
 package screenshot2
 
 import (
+	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/sigmonsays/screenshot2/capture"
 	"github.com/sigmonsays/screenshot2/clipboard"
@@ -38,6 +40,15 @@ func Capture(c *cli.Context) error {
 		return err
 	}
 
+	if shortname.Url != "" {
+		fmt.Printf("%s\n", shortname.Url)
+		logfile := filepath.Join(cfg.DataDir, "screenshot-url.txt")
+		err := WriteLogFile(logfile, shortname.Url)
+		if err != nil {
+			log.Warnf("WriteLogFile %s; %s: %s", logfile, shortname.Url, err)
+		}
+	}
+
 	if shortname.LocalFile != "" && cfg.Capture.KeepLocal == false {
 		log.Debugf("Delete local file %s", shortname.LocalFile)
 		err = os.Remove(shortname.LocalFile)
@@ -46,5 +57,15 @@ func Capture(c *cli.Context) error {
 		}
 	}
 
+	return nil
+}
+
+func WriteLogFile(logfile string, url string) error {
+	f, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	fmt.Fprintf(f, "%s\n", url)
 	return nil
 }
