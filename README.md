@@ -47,6 +47,7 @@ All Config params
 all parameters
 
     datadir: Pictures/screenshot
+    writeurlfile: true
     capture:
       command: import
       keep_local: true
