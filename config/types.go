@@ -2,10 +2,11 @@ package config
 
 // main configuration structure
 type AppConfig struct {
-	DataDir   string
-	Capture   *Capture
-	Upload    *Upload
-	Clipboard *Clipboard
+	DataDir      string
+	WriteUrlFile bool
+	Capture      *Capture
+	Upload       *Upload
+	Clipboard    *Clipboard
 }
 
 type Upload struct {
@@ -19,7 +20,7 @@ type Capture struct {
 	Interface string
 	// "import"
 	Command   string `yaml:"command"`
-	KeepLocal bool `yaml:"keep_local"`
+	KeepLocal bool   `yaml:"keep_local"`
 }
 
 type Clipboard struct {

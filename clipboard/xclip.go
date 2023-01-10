@@ -26,5 +26,6 @@ func (me *XClip) CopyToClipboard(cfg *config.AppConfig, shortname *core.Shortnam
 		return err
 	}
 	log.Tracef("successfully copied %s to clipboard", clipUrl)
+
 	return nil
 }
