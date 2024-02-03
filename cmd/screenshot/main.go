@@ -68,6 +68,11 @@ func main() {
 					Aliases: []string{"s"},
 					Usage:   "shortname of screenshot",
 				},
+				&cli.IntFlag{
+					Name:    "delay",
+					Aliases: []string{"d"},
+					Usage:   "delay before taking screenshot",
+				},
 			},
 		},
 		{
