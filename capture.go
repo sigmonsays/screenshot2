@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/sigmonsays/screenshot2/capture"
 	"github.com/sigmonsays/screenshot2/clipboard"
@@ -20,7 +21,14 @@ func Capture(c *cli.Context) error {
 
 	shortname := core.NewShortname(c.String("shortname"))
 	shortname.IncludeDate = true
-	log.Tracef("GalleryCapture shortname:%s", shortname.GetShortname())
+	delay := c.Int("delay")
+	log.Tracef("GalleryCapture shortname:%s delay:%d",
+		shortname.GetShortname(), delay)
+
+	if delay > 0 {
+		log.Tracef("delaying %d seconds before capture", delay)
+		time.Sleep(time.Duration(delay) * time.Second)
+	}
 
 	cap := &capture.Capture{}
 	err = cap.Capture(cfg, shortname)
