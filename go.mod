@@ -1,6 +1,6 @@
 module github.com/sigmonsays/screenshot2
 
-go 1.17
+go 1.23
 
 require (
 	github.com/aws/aws-sdk-go v1.37.29
