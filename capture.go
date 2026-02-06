@@ -9,6 +9,7 @@ import (
 	"github.com/sigmonsays/screenshot2/capture"
 	"github.com/sigmonsays/screenshot2/clipboard"
 	"github.com/sigmonsays/screenshot2/core"
+	"github.com/sigmonsays/screenshot2/postprocess"
 	"github.com/sigmonsays/screenshot2/upload"
 	"github.com/urfave/cli/v2"
 )
@@ -33,6 +34,13 @@ func Capture(c *cli.Context) error {
 	cap := &capture.Capture{}
 	err = cap.Capture(cfg, shortname)
 	if err != nil {
+		return err
+	}
+
+	pp := &postprocess.PostProcess{}
+	err = pp.Run(cfg, shortname)
+	if err != nil {
+		log.Warnf("Run %s: %s", shortname.LocalFile, err)
 		return err
 	}
 

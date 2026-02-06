@@ -7,6 +7,7 @@ type AppConfig struct {
 	Capture      *Capture
 	Upload       *Upload
 	Clipboard    *Clipboard
+	PostProcess  []*PostProcess
 }
 
 type Upload struct {
@@ -19,11 +20,15 @@ type Upload struct {
 type Capture struct {
 	Interface string
 	// "import"
-	Command   string `yaml:"command"`
-	KeepLocal bool   `yaml:"keep_local"`
+	Command   string   `yaml:"command"`
+	Cmdline   []string `yaml:"cmdline"`
+	KeepLocal bool     `yaml:"keep_local"`
 }
 
 type Clipboard struct {
 	Interface string
 	Command   string `yaml:"command"`
+}
+type PostProcess struct {
+	Command string `yaml:"command"`
 }
